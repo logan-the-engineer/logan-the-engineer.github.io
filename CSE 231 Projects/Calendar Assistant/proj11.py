@@ -5,7 +5,7 @@ Description
 
     This calendar assistant records and updates events. The
     assistant is used within the Python interpreter. It is 
-    implemented using two classes and a driver. It uses a
+    implemented using two classes (P11_Calendar and P11_Event) and a driver (this file). It uses a
     24-hour clock and mm/dd/yyyy date formatting. For a
     detailed description, read "Project11.pdf"
 
