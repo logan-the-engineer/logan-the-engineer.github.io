@@ -3,12 +3,13 @@ CSE Project #11 - Calendar Assistant
 
 Description
 
-    This calendar assistant records and updates events. It is 
-    implemented using two classes and a driver. It uses a
+    This calendar assistant records and updates events. The
+    assistant is used within the Python interpreter. It is 
+    implemented using two classes (P11_Calendar and P11_Event) and a driver (this file). It uses a
     24-hour clock and mm/dd/yyyy date formatting. For a
     detailed description, read "Project11.pdf"
 
-Notable Methods of Implementation
+Notable Concepts
 
     classes, lists, functions, try-except statements
 
