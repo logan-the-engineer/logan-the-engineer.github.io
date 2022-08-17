@@ -9,7 +9,7 @@ Description
     24-hour clock and mm/dd/yyyy date formatting. For a
     detailed description, read "Project11.pdf"
 
-Notable Methods of Implementation
+Notable Concepts
 
     classes, lists, functions, try-except statements
 
