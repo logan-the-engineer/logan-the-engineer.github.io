@@ -1,5 +1,5 @@
 """
-CSE Project #8
+CSE Project #8 - Per Capita Diabetes Calculator
 
 Description
 
