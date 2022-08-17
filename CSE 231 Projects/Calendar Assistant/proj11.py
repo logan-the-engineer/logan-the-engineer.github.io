@@ -30,8 +30,6 @@ Algorithm
             list date's events if date is valid and events exist
         if q:
             end program
-
-
 """
 
 from p11_calendar import P11_Calendar
