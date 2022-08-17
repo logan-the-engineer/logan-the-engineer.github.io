@@ -13,7 +13,6 @@ Notable Methods of Implementation
 
     classes, lists, functions, try-except statements
 
-
 Algorithm
 
     create calendar
