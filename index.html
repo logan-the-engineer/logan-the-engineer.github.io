@@ -7,13 +7,13 @@
 -->
 <html>
 	<head>
-		<title>Logan Lara - Software Engineer</title>
+		<title>Logan Lara — Software Engineer</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 		<style>
 			/* ── Global overrides ── */
 			:root {
@@ -24,8 +24,9 @@
 				--border: rgba(255,255,255,0.07);
 				--text-primary: #e8eaf0;
 				--text-secondary: #8b92a5;
-				--mono: 'IBM Plex Mono', monospace;
-				--sans: 'Inter', sans-serif;
+				--mono: 'JetBrains Mono', monospace;
+				--sans: 'Figtree', sans-serif;
+				--display: 'Syne', sans-serif;
 			}
 
 			body, input, select, textarea {
@@ -48,10 +49,10 @@
 			}
 
 			#logo h1 {
-				font-family: var(--mono);
-				font-weight: 600;
+				font-family: var(--display);
+				font-weight: 800;
 				font-size: 1.05em;
-				letter-spacing: 0.02em;
+				letter-spacing: -0.01em;
 				color: var(--text-primary);
 			}
 
@@ -99,12 +100,12 @@
 			}
 
 			#top h2.alt {
-				font-family: var(--sans);
-				font-weight: 300;
+				font-family: var(--display);
+				font-weight: 800;
 				font-size: 2em;
 				line-height: 1.4;
 				color: var(--text-primary);
-				letter-spacing: -0.01em;
+				letter-spacing: -0.025em;
 			}
 
 			#top h2.alt strong {
@@ -183,11 +184,12 @@
 			}
 
 			.project-card h3 {
-				font-family: var(--sans);
-				font-weight: 600;
+				font-family: var(--display);
+				font-weight: 700;
 				font-size: 1.1em;
 				color: var(--text-primary);
 				margin-bottom: 0.4em;
+				letter-spacing: -0.01em;
 			}
 
 			.project-card .project-meta {
@@ -252,15 +254,16 @@
 			}
 
 			.project-stat .stat-value {
-				font-family: var(--mono);
+				font-family: var(--display);
 				font-size: 1.3em;
-				font-weight: 600;
+				font-weight: 800;
 				color: var(--accent);
 				display: block;
+				letter-spacing: -0.025em;
 			}
 
 			.project-stat .stat-label {
-				font-family: var(--sans);
+				font-family: var(--mono);
 				font-size: 0.7em;
 				color: var(--text-secondary);
 				text-transform: uppercase;
