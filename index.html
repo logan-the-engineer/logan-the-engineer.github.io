@@ -17,16 +17,22 @@
 		<style>
 			/* ── Global overrides ── */
 			:root {
-				--accent: #00c896;
-				--accent-dim: rgba(0, 200, 150, 0.12);
-				--surface: #0f1117;
-				--surface-2: #161b24;
-				--border: rgba(255,255,255,0.07);
-				--text-primary: #e8eaf0;
-				--text-secondary: #8b92a5;
-				--mono: 'JetBrains Mono', monospace;
-				--sans: 'Figtree', sans-serif;
-				--display: 'Syne', sans-serif;
+				--surface:        #07090f;
+				--surface-2:      #0b0f1a;
+				--surface-card:   #0d1220;
+				--accent:         #22d3ee;
+				--accent-dim:     rgba(34, 211, 238, 0.08);
+				--accent-glow:    rgba(34, 211, 238, 0.16);
+				--accent-border:  rgba(34, 211, 238, 0.22);
+				--indigo:         #a5b4fc;
+				--indigo-dim:     rgba(165, 180, 252, 0.08);
+				--indigo-border:  rgba(165, 180, 252, 0.2);
+				--text-primary:   #f1f5f9;
+				--text-secondary: #94a3b8;
+				--border:         rgba(255, 255, 255, 0.055);
+				--mono:           'JetBrains Mono', monospace;
+				--sans:           'Figtree', sans-serif;
+				--display:        'Syne', sans-serif;
 			}
 
 			body, input, select, textarea {
@@ -96,7 +102,7 @@
 
 			/* ── Intro section ── */
 			#top.cover {
-				background: linear-gradient(135deg, #0a0e14 0%, #0f1a1f 50%, #0a1410 100%);
+				background: var(--surface);
 			}
 
 			#top h2.alt {
@@ -170,16 +176,16 @@
 			}
 
 			.project-card {
-				background: var(--surface);
+				background: var(--surface-card);
 				border: 1px solid var(--border);
-				border-radius: 6px;
+				border-left: 2px solid var(--accent);
+				border-radius: 4px;
 				padding: 2em;
 				margin-bottom: 2em;
 				transition: border-color 0.2s ease, transform 0.2s ease;
 			}
 
 			.project-card:hover {
-				border-color: var(--accent);
 				transform: translateY(-2px);
 			}
 
@@ -218,8 +224,8 @@
 				font-family: var(--mono);
 				font-size: 0.68em;
 				color: var(--text-secondary);
-				background: var(--accent-dim);
-				border: 1px solid rgba(0, 200, 150, 0.2);
+				background: rgba(255, 255, 255, 0.04);
+				border: 1px solid var(--border);
 				border-radius: 3px;
 				padding: 0.25em 0.65em;
 				letter-spacing: 0.04em;
@@ -275,6 +281,7 @@
 				background: var(--surface);
 			}
 
+
 			#about p {
 				font-size: 0.92em;
 				line-height: 1.8;
@@ -285,14 +292,15 @@
 			}
 
 			#about p strong {
-				color: var(--text-primary);
-				font-weight: 500;
+				color: var(--accent);
+				font-weight: 600;
 			}
 
 			/* ── Contact section ── */
 			#contact {
 				background: var(--surface-2);
 			}
+
 
 			#contact p {
 				font-size: 0.9em;
