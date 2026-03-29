@@ -15,6 +15,22 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 		<style>
+			/* ── Keyframes ── */
+			@keyframes dot-pulse {
+				0%, 100% { opacity: 0.28; }
+				50%       { opacity: 0.52; }
+			}
+
+			@keyframes cursor-blink {
+				0%, 49%   { border-right-color: var(--accent); }
+				50%, 100% { border-right-color: transparent; }
+			}
+
+			@keyframes fade-in-up {
+				from { opacity: 0; transform: translateY(16px); }
+				to   { opacity: 1; transform: translateY(0); }
+			}
+
 			/* ── Global overrides ── */
 			:root {
 				--surface:        #07090f;
@@ -102,61 +118,123 @@
 
 			/* ── Intro section ── */
 			#top.cover {
-				background: var(--surface);
+				background-color: var(--surface);
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Animated dot grid */
+			#top.cover::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image: radial-gradient(circle, rgba(34, 211, 238, 0.18) 1px, transparent 1px);
+				background-size: 28px 28px;
+				animation: dot-pulse 8s ease-in-out infinite;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* Ambient glow orbs */
+			#top.cover::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(ellipse 55% 50% at 20% 40%, rgba(34, 211, 238, 0.06) 0%, transparent 65%),
+					radial-gradient(ellipse 40% 55% at 80% 60%, rgba(165, 180, 252, 0.045) 0%, transparent 65%);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			#top .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* Terminal prompt above headline */
+			#top h2.alt::before {
+				content: '> logan_lara';
+				display: block;
+				font-family: var(--mono);
+				font-size: 0.35em;
+				color: var(--accent);
+				letter-spacing: 0.12em;
+				margin-bottom: 1.1em;
+				width: max-content;
+				border-right: 2px solid var(--accent);
+				padding-right: 4px;
+				animation: cursor-blink 1.1s steps(1) infinite;
+				opacity: 0.78;
 			}
 
 			#top h2.alt {
 				font-family: var(--display);
 				font-weight: 800;
-				font-size: 2em;
-				line-height: 1.4;
+				font-size: 2.6em;
+				line-height: 1.22;
 				color: var(--text-primary);
 				letter-spacing: -0.025em;
 			}
 
 			#top h2.alt strong {
-				font-weight: 600;
+				font-weight: 800;
 				color: var(--accent);
 			}
 
 			#top .tagline {
 				font-family: var(--mono);
-				font-size: 0.85em;
+				font-size: 0.78em;
 				color: var(--text-secondary);
-				letter-spacing: 0.05em;
-				margin-top: 1em;
-				margin-bottom: 2em;
+				letter-spacing: 0.04em;
+				margin-top: 1.1em;
+				margin-bottom: 2.2em;
+				line-height: 1.75;
+			}
+
+			/* Staggered entrance — fires once main.js removes .is-preload */
+			body:not(.is-preload) #top header {
+				animation: fade-in-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+			}
+
+			body:not(.is-preload) #top footer {
+				animation: fade-in-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.25s both;
 			}
 
 			/* ── Buttons ── */
 			.button {
 				font-family: var(--mono);
-				font-size: 0.8em;
+				font-size: 0.74em;
 				font-weight: 600;
-				letter-spacing: 0.08em;
+				letter-spacing: 0.1em;
 				text-transform: uppercase;
 				border: 1.5px solid var(--accent);
 				color: var(--accent);
 				background: transparent;
-				padding: 0.75em 2em;
+				padding: 0.82em 2.2em;
 				border-radius: 3px;
-				transition: background 0.2s ease, color 0.2s ease;
-				margin: 0 0.5em;
+				transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+				margin: 0 0.45em;
 			}
 
 			.button:hover {
 				background: var(--accent);
 				color: #000;
+				transform: translateY(-2px);
+				box-shadow: 0 8px 26px rgba(34, 211, 238, 0.28);
 			}
 
 			.button.alt {
-				border-color: var(--text-secondary);
+				border-color: rgba(255, 255, 255, 0.13);
 				color: var(--text-secondary);
 			}
 
 			.button.alt:hover {
-				background: var(--text-secondary);
-				color: #000;
+				background: rgba(255, 255, 255, 0.06);
+				color: var(--text-primary);
+				border-color: rgba(255, 255, 255, 0.26);
+				box-shadow: none;
+				transform: translateY(-2px);
 			}
 
 			/* ── Section headers ── */
