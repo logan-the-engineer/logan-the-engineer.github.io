@@ -568,6 +568,62 @@
 				background: linear-gradient(90deg, var(--accent), transparent);
 				margin: 0 auto 2.2em auto;
 			}
+
+			/* ── Micro-interactions ── */
+
+			/* Tag hover — scale lift */
+			.tag {
+				transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.18s ease;
+			}
+
+			.tag:hover {
+				transform: scale(1.05);
+			}
+
+			/* Indigo tag hover */
+			.tag-list .tag:nth-child(1):hover,
+			.tag-list .tag:nth-child(2):hover,
+			.tag-list .tag:nth-child(3):hover,
+			.tag-list .tag:nth-child(8):hover {
+				background: rgba(165, 180, 252, 0.14);
+			}
+
+			/* Cyan tag hover */
+			.tag-list .tag:nth-child(4):hover,
+			.tag-list .tag:nth-child(5):hover,
+			.tag-list .tag:nth-child(6):hover {
+				background: rgba(34, 211, 238, 0.14);
+			}
+
+			/* Neutral tag hover */
+			.tag-list .tag:nth-child(7):hover,
+			.tag-list .tag:nth-child(9):hover {
+				background: rgba(255, 255, 255, 0.08);
+			}
+
+			/* Scrollbar */
+			::-webkit-scrollbar             { width: 3px; }
+			::-webkit-scrollbar-track       { background: var(--surface); }
+			::-webkit-scrollbar-thumb       { background: rgba(34, 211, 238, 0.2); border-radius: 2px; }
+			::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+			/* ── Responsive ── */
+			@media screen and (max-width: 736px) {
+				.project-stat-row {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 1.2em;
+				}
+
+				#top h2.alt {
+					font-size: 1.9em;
+				}
+
+				.two header::before,
+				.three header::before,
+				.four header::before {
+					font-size: 5em;
+				}
+			}
 		</style>
 	</head>
 	<body class="is-preload">
