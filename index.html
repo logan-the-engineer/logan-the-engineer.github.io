@@ -258,100 +258,166 @@
 				border: 1px solid var(--border);
 				border-left: 2px solid var(--accent);
 				border-radius: 4px;
-				padding: 2em;
+				padding: 2em 2.2em;
 				margin-bottom: 2em;
-				transition: border-color 0.2s ease, transform 0.2s ease;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
 			}
 
 			.project-card:hover {
-				transform: translateY(-2px);
+				transform: translateY(-3px);
+				box-shadow:
+					0 14px 44px rgba(34, 211, 238, 0.07),
+					0 4px 14px rgba(0, 0, 0, 0.5);
 			}
 
 			.project-card h3 {
 				font-family: var(--display);
 				font-weight: 700;
-				font-size: 1.1em;
+				font-size: 1.15em;
 				color: var(--text-primary);
-				margin-bottom: 0.4em;
+				margin-bottom: 0.28em;
 				letter-spacing: -0.01em;
 			}
 
 			.project-card .project-meta {
 				font-family: var(--mono);
-				font-size: 0.72em;
+				font-size: 0.67em;
 				color: var(--accent);
-				letter-spacing: 0.05em;
-				margin-bottom: 1em;
-			}
-
-			.project-card p {
-				font-size: 0.88em;
-				color: var(--text-secondary);
-				line-height: 1.7;
-				margin-bottom: 1.2em;
-			}
-
-			.project-card .tag-list {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5em;
-				margin-bottom: 1.4em;
-			}
-
-			.tag {
-				font-family: var(--mono);
-				font-size: 0.68em;
-				color: var(--text-secondary);
-				background: rgba(255, 255, 255, 0.04);
-				border: 1px solid var(--border);
-				border-radius: 3px;
-				padding: 0.25em 0.65em;
 				letter-spacing: 0.04em;
+				margin-bottom: 1.6em;
+				opacity: 0.68;
 			}
 
-			.project-card .project-links a {
-				font-family: var(--mono);
-				font-size: 0.75em;
-				font-weight: 600;
-				color: var(--accent);
-				letter-spacing: 0.05em;
-				text-decoration: none;
-				text-transform: uppercase;
-				margin-right: 1.5em;
-				border-bottom: 1px solid transparent;
-				transition: border-color 0.2s ease;
-			}
-
-			.project-card .project-links a:hover {
-				border-bottom-color: var(--accent);
-			}
-
+			/* ── Stat row ── */
 			.project-stat-row {
-				display: flex;
-				flex-wrap: wrap;
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
 				gap: 1.5em;
-				margin-bottom: 1.4em;
+				margin-bottom: 1.8em;
+				padding: 1.4em 0;
+				border-top: 1px solid var(--border);
+				border-bottom: 1px solid var(--border);
 			}
 
 			.project-stat {
-				text-align: center;
+				text-align: left;
+				position: relative;
+				padding-bottom: 0.9em;
 			}
+
+			/* Proportional decorative bars.
+			   HTML order: (1) ML Strategies=2, (2) Tests=36, (3) Arch Layers=4, (4) Perf Metrics=5
+			   Scaled: 36=100%, 5=55%, 4=44%, 2=22% */
+			.project-stat::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--accent), rgba(34, 211, 238, 0.18));
+				border-radius: 1px;
+			}
+
+			.project-stat-row .project-stat:nth-child(1)::after { width: 22%;  }
+			.project-stat-row .project-stat:nth-child(2)::after { width: 100%; }
+			.project-stat-row .project-stat:nth-child(3)::after { width: 44%;  }
+			.project-stat-row .project-stat:nth-child(4)::after { width: 55%;  }
 
 			.project-stat .stat-value {
 				font-family: var(--display);
-				font-size: 1.3em;
+				font-size: 2.2em;
 				font-weight: 800;
-				color: var(--accent);
+				color: var(--text-primary);
 				display: block;
-				letter-spacing: -0.025em;
+				line-height: 1;
+				margin-bottom: 0.22em;
+				letter-spacing: -0.03em;
 			}
 
 			.project-stat .stat-label {
 				font-family: var(--mono);
-				font-size: 0.7em;
+				font-size: 0.62em;
 				color: var(--text-secondary);
 				text-transform: uppercase;
-				letter-spacing: 0.06em;
+				letter-spacing: 0.08em;
+				line-height: 1.4;
+			}
+
+			/* ── Description paragraphs ── */
+			.project-card p {
+				font-size: 0.9em;
+				color: var(--text-secondary);
+				line-height: 1.78;
+				margin-bottom: 1.1em;
+			}
+
+			.project-card p:first-of-type {
+				color: rgba(241, 245, 249, 0.72);
+			}
+
+			/* ── Tag list ── */
+			.project-card .tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.42em;
+				margin-bottom: 1.6em;
+			}
+
+			.tag {
+				font-family: var(--mono);
+				font-size: 0.67em;
+				color: var(--text-secondary);
+				background: rgba(255, 255, 255, 0.04);
+				border: 1px solid var(--border);
+				border-radius: 3px;
+				padding: 0.26em 0.72em;
+				letter-spacing: 0.03em;
+			}
+
+			/* Architecture/pattern tags: Layered Monolith, REST API, Backtesting Engine, OpenAPI 3.0 */
+			.tag-list .tag:nth-child(1),
+			.tag-list .tag:nth-child(2),
+			.tag-list .tag:nth-child(3),
+			.tag-list .tag:nth-child(8) {
+				background: var(--indigo-dim);
+				border-color: var(--indigo-border);
+				color: var(--indigo);
+			}
+
+			/* ML/AI tags: RandomForest, Deep Q-Network, Feature Pipeline */
+			.tag-list .tag:nth-child(4),
+			.tag-list .tag:nth-child(5),
+			.tag-list .tag:nth-child(6) {
+				background: var(--accent-dim);
+				border-color: var(--accent-border);
+				color: var(--accent);
+			}
+
+			/* ── Project link CTA ── */
+			.project-card .project-links {
+				display: flex;
+				justify-content: flex-end;
+			}
+
+			.project-card .project-links a {
+				font-family: var(--mono);
+				font-size: 0.71em;
+				font-weight: 600;
+				color: #000;
+				background: var(--accent);
+				letter-spacing: 0.08em;
+				text-decoration: none;
+				text-transform: uppercase;
+				padding: 0.58em 1.5em;
+				border-radius: 3px;
+				border-bottom: none;
+				transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.2s ease;
+			}
+
+			.project-card .project-links a:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(34, 211, 238, 0.32);
+				background: #38ddf0;
 			}
 
 			/* ── About section ── */
