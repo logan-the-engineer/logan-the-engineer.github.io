@@ -3,13 +3,635 @@
 	Prologue by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Content updated for Logan Lara's SWE portfolio
 -->
 <html>
 	<head>
-		<title>Logan the Engineer</title>
+		<title>Logan Lara — Software Engineer</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			/* ── Keyframes ── */
+			@keyframes dot-pulse {
+				0%, 100% { opacity: 0.28; }
+				50%       { opacity: 0.52; }
+			}
+
+			@keyframes cursor-blink {
+				0%, 49%   { border-right-color: var(--accent); }
+				50%, 100% { border-right-color: transparent; }
+			}
+
+			@keyframes fade-in-up {
+				from { opacity: 0; transform: translateY(16px); }
+				to   { opacity: 1; transform: translateY(0); }
+			}
+
+			/* ── Global overrides ── */
+			:root {
+				--surface:        #07090f;
+				--surface-2:      #0b0f1a;
+				--surface-card:   #0d1220;
+				--accent:         #22d3ee;
+				--accent-dim:     rgba(34, 211, 238, 0.08);
+				--accent-glow:    rgba(34, 211, 238, 0.16);
+				--accent-border:  rgba(34, 211, 238, 0.22);
+				--indigo:         #a5b4fc;
+				--indigo-dim:     rgba(165, 180, 252, 0.08);
+				--indigo-border:  rgba(165, 180, 252, 0.2);
+				--text-primary:   #f1f5f9;
+				--text-secondary: #94a3b8;
+				--border:         rgba(255, 255, 255, 0.055);
+				--mono:           'JetBrains Mono', monospace;
+				--sans:           'Figtree', sans-serif;
+				--display:        'Syne', sans-serif;
+			}
+
+			body, input, select, textarea {
+				font-family: var(--sans);
+				color: var(--text-primary);
+			}
+
+			/* ── Sidebar / header ── */
+			#header {
+				background: linear-gradient(175deg, #0a0f22 0%, var(--surface) 70%);
+				border-right: 1px solid var(--border);
+			}
+
+			#header .top   { border-bottom: 1px solid var(--border); }
+			#header .bottom { border-top: 1px solid var(--border); }
+
+			/* Logo — override absolute positioning so avatar stacks above name */
+			#logo .image {
+				position: relative !important;
+				display: block;
+				margin: 0 0 0.65em 0;
+			}
+
+			/* Avatar — double-ring treatment */
+			.image.avatar35 img {
+				border: 2px solid var(--accent);
+				border-radius: 50%;
+				box-shadow:
+					0 0 0 4px var(--accent-glow),
+					0 0 20px rgba(34, 211, 238, 0.06);
+				transition: box-shadow 0.35s ease;
+			}
+
+			.image.avatar35:hover img {
+				box-shadow:
+					0 0 0 4px rgba(34, 211, 238, 0.3),
+					0 0 30px rgba(34, 211, 238, 0.13);
+			}
+
+			/* Name */
+			#logo h1 {
+				font-family: var(--display);
+				font-weight: 800;
+				font-size: 1.1em;
+				letter-spacing: -0.01em;
+				color: var(--text-primary);
+			}
+
+			/* Title */
+			#logo p {
+				font-family: var(--mono);
+				font-size: 0.63em;
+				color: var(--accent);
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+			}
+
+			/* Nav links */
+			#nav ul li {
+				position: relative;
+			}
+
+			#nav a {
+				font-family: var(--sans);
+				font-size: 0.83em;
+				font-weight: 500;
+				letter-spacing: 0.01em;
+				color: var(--text-secondary);
+				position: relative;
+				transition: color 0.25s ease, padding-left 0.25s ease;
+			}
+
+			/* Left-border active indicator */
+			#nav a::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 2px;
+				height: 0;
+				background: var(--accent);
+				border-radius: 1px;
+				transition: height 0.25s ease;
+			}
+
+			#nav a:hover {
+				color: var(--text-primary);
+				padding-left: 4px;
+			}
+
+			#nav a.active {
+				color: var(--accent);
+			}
+
+			#nav a.active::before {
+				height: 50%;
+			}
+
+			/* Social icons */
+			#header .icons a {
+				color: var(--text-secondary);
+				width: 2.2em;
+				height: 2.2em;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+			}
+
+			#header .icons a:hover {
+				color: var(--accent);
+				background: var(--accent-dim);
+				transform: translateY(-2px);
+			}
+
+			/* ── Intro section ── */
+			#top.cover {
+				background-color: var(--surface);
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Animated dot grid */
+			#top.cover::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image: radial-gradient(circle, rgba(34, 211, 238, 0.18) 1px, transparent 1px);
+				background-size: 28px 28px;
+				animation: dot-pulse 8s ease-in-out infinite;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* Ambient glow orbs */
+			#top.cover::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(ellipse 55% 50% at 20% 40%, rgba(34, 211, 238, 0.06) 0%, transparent 65%),
+					radial-gradient(ellipse 40% 55% at 80% 60%, rgba(165, 180, 252, 0.045) 0%, transparent 65%);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			#top .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* Terminal prompt above headline */
+			#top h2.alt::before {
+				content: '> logan_lara';
+				display: block;
+				font-family: var(--mono);
+				font-size: 0.35em;
+				color: var(--accent);
+				letter-spacing: 0.12em;
+				margin-bottom: 1.1em;
+				width: max-content;
+				border-right: 2px solid var(--accent);
+				padding-right: 4px;
+				animation: cursor-blink 1.1s steps(1) infinite;
+				opacity: 0.78;
+			}
+
+			#top h2.alt {
+				font-family: var(--display);
+				font-weight: 800;
+				font-size: 2.6em;
+				line-height: 1.22;
+				color: var(--text-primary);
+				letter-spacing: -0.025em;
+			}
+
+			#top h2.alt strong {
+				font-weight: 800;
+				color: var(--accent);
+			}
+
+			#top .tagline {
+				font-family: var(--mono);
+				font-size: 0.78em;
+				color: var(--text-secondary);
+				letter-spacing: 0.04em;
+				margin-top: 1.1em;
+				margin-bottom: 2.2em;
+				line-height: 1.75;
+			}
+
+			/* Staggered entrance — fires once main.js removes .is-preload */
+			body:not(.is-preload) #top header {
+				animation: fade-in-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+			}
+
+			body:not(.is-preload) #top footer {
+				animation: fade-in-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.25s both;
+			}
+
+			/* ── Buttons ── */
+			.button {
+				font-family: var(--mono);
+				font-size: 0.74em;
+				font-weight: 600;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				border: 1.5px solid var(--accent);
+				color: var(--accent);
+				background: transparent;
+				padding: 0.82em 2.2em;
+				border-radius: 3px;
+				transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+				margin: 0 0.45em;
+			}
+
+			.button:hover {
+				background: var(--accent);
+				color: #000;
+				transform: translateY(-2px);
+				box-shadow: 0 8px 26px rgba(34, 211, 238, 0.28);
+			}
+
+			.button.alt {
+				border-color: rgba(255, 255, 255, 0.13);
+				color: var(--text-secondary);
+			}
+
+			.button.alt:hover {
+				background: rgba(255, 255, 255, 0.06);
+				color: var(--text-primary);
+				border-color: rgba(255, 255, 255, 0.26);
+				box-shadow: none;
+				transform: translateY(-2px);
+			}
+
+			/* ── Section headers ── */
+			.two h2, .three h2, .four h2 {
+				font-family: var(--mono);
+				font-weight: 600;
+				font-size: 0.72em;
+				letter-spacing: 0.22em;
+				text-transform: uppercase;
+				color: var(--accent);
+				margin-bottom: 2em;
+				position: relative;
+				z-index: 1;
+			}
+
+			/* Low-opacity background numerals — depth detail */
+			.two header, .three header, .four header {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.two header::before,
+			.three header::before,
+			.four header::before {
+				position: absolute;
+				font-family: var(--display);
+				font-weight: 800;
+				font-size: 7em;
+				color: var(--text-primary);
+				opacity: 0.027;
+				pointer-events: none;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 0;
+				letter-spacing: -0.04em;
+				line-height: 1;
+				white-space: nowrap;
+			}
+
+			.two header::before   { content: '01'; }
+			.three header::before { content: '02'; }
+			.four header::before  { content: '03'; }
+
+			/* ── Projects section ── */
+			#projects {
+				background: var(--surface-2);
+			}
+
+			.project-card {
+				background: var(--surface-card);
+				border: 1px solid var(--border);
+				border-left: 2px solid var(--accent);
+				border-radius: 4px;
+				padding: 2em 2.2em;
+				margin-bottom: 2em;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.project-card:hover {
+				transform: translateY(-3px);
+				box-shadow:
+					0 14px 44px rgba(34, 211, 238, 0.07),
+					0 4px 14px rgba(0, 0, 0, 0.5);
+			}
+
+			.project-card h3 {
+				font-family: var(--display);
+				font-weight: 700;
+				font-size: 1.15em;
+				color: var(--text-primary);
+				margin-bottom: 0.28em;
+				letter-spacing: -0.01em;
+			}
+
+			.project-card .project-meta {
+				font-family: var(--mono);
+				font-size: 0.67em;
+				color: var(--accent);
+				letter-spacing: 0.04em;
+				margin-bottom: 1.6em;
+				opacity: 0.68;
+			}
+
+			/* ── Stat row ── */
+			.project-stat-row {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1.5em;
+				margin-bottom: 1.8em;
+				padding: 1.4em 0;
+				border-top: 1px solid var(--border);
+				border-bottom: 1px solid var(--border);
+			}
+
+			.project-stat {
+				text-align: left;
+				position: relative;
+				padding-bottom: 0.9em;
+			}
+
+			/* Proportional decorative bars.
+			   HTML order: (1) ML Strategies=2, (2) Tests=36, (3) Arch Layers=4, (4) Perf Metrics=5
+			   Scaled: 36=100%, 5=55%, 4=44%, 2=22% */
+			.project-stat::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--accent), rgba(34, 211, 238, 0.18));
+				border-radius: 1px;
+			}
+
+			.project-stat-row .project-stat:nth-child(1)::after { width: 22%;  }
+			.project-stat-row .project-stat:nth-child(2)::after { width: 100%; }
+			.project-stat-row .project-stat:nth-child(3)::after { width: 44%;  }
+			.project-stat-row .project-stat:nth-child(4)::after { width: 55%;  }
+
+			.project-stat .stat-value {
+				font-family: var(--display);
+				font-size: 2.2em;
+				font-weight: 800;
+				color: var(--text-primary);
+				display: block;
+				line-height: 1;
+				margin-bottom: 0.22em;
+				letter-spacing: -0.03em;
+			}
+
+			.project-stat .stat-label {
+				font-family: var(--mono);
+				font-size: 0.62em;
+				color: var(--text-secondary);
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				line-height: 1.4;
+			}
+
+			/* ── Description paragraphs ── */
+			.project-card p {
+				font-size: 0.9em;
+				color: var(--text-secondary);
+				line-height: 1.78;
+				margin-bottom: 1.1em;
+			}
+
+			.project-card p:first-of-type {
+				color: rgba(241, 245, 249, 0.72);
+			}
+
+			/* ── Tag list ── */
+			.project-card .tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.42em;
+				margin-bottom: 1.6em;
+			}
+
+			.tag {
+				font-family: var(--mono);
+				font-size: 0.67em;
+				color: var(--text-secondary);
+				background: rgba(255, 255, 255, 0.04);
+				border: 1px solid var(--border);
+				border-radius: 3px;
+				padding: 0.26em 0.72em;
+				letter-spacing: 0.03em;
+			}
+
+			/* Architecture/pattern tags: Layered Monolith, REST API, Backtesting Engine, OpenAPI 3.0 */
+			.tag-list .tag:nth-child(1),
+			.tag-list .tag:nth-child(2),
+			.tag-list .tag:nth-child(3),
+			.tag-list .tag:nth-child(8) {
+				background: var(--indigo-dim);
+				border-color: var(--indigo-border);
+				color: var(--indigo);
+			}
+
+			/* ML/AI tags: RandomForest, Deep Q-Network, Feature Pipeline */
+			.tag-list .tag:nth-child(4),
+			.tag-list .tag:nth-child(5),
+			.tag-list .tag:nth-child(6) {
+				background: var(--accent-dim);
+				border-color: var(--accent-border);
+				color: var(--accent);
+			}
+
+			/* ── Project link CTA ── */
+			.project-card .project-links {
+				display: flex;
+				justify-content: flex-end;
+			}
+
+			.project-card .project-links a {
+				font-family: var(--mono);
+				font-size: 0.71em;
+				font-weight: 600;
+				color: #000;
+				background: var(--accent);
+				letter-spacing: 0.08em;
+				text-decoration: none;
+				text-transform: uppercase;
+				padding: 0.58em 1.5em;
+				border-radius: 3px;
+				border-bottom: none;
+				transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.2s ease;
+			}
+
+			.project-card .project-links a:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(34, 211, 238, 0.32);
+				background: #38ddf0;
+			}
+
+			/* ── About section ── */
+			#about {
+				background: var(--surface);
+			}
+
+			#about p {
+				font-size: 0.92em;
+				line-height: 1.88;
+				color: var(--text-secondary);
+				max-width: 640px;
+				margin: 0 auto 1.3em auto;
+				text-align: left;
+			}
+
+			#about p strong {
+				color: var(--accent);
+				font-weight: 600;
+			}
+
+			/* ── Contact section ── */
+			#contact {
+				background: var(--surface-2);
+			}
+
+			#contact p {
+				font-size: 0.9em;
+				color: var(--text-secondary);
+				line-height: 2.1;
+			}
+
+			#contact a {
+				color: var(--accent);
+				text-decoration: none;
+				font-family: var(--mono);
+				font-size: 0.9em;
+				letter-spacing: 0.02em;
+				border-bottom: 1px solid transparent;
+				transition: border-color 0.22s ease, color 0.22s ease;
+			}
+
+			#contact a:hover {
+				border-bottom-color: var(--accent);
+				color: #38ddf0;
+			}
+
+			/* ── Footer ── */
+			#footer {
+				background: var(--surface);
+				border-top: 1px solid var(--border);
+			}
+
+			#footer .copyright li {
+				font-family: var(--mono);
+				font-size: 0.7em;
+				color: var(--text-secondary);
+				letter-spacing: 0.05em;
+				opacity: 0.5;
+			}
+
+			#footer .copyright a {
+				color: var(--text-secondary);
+				border-bottom: none;
+				transition: color 0.2s ease;
+			}
+
+			#footer .copyright a:hover { color: var(--accent); }
+
+			/* ── Divider ── */
+			.section-divider {
+				width: 48px;
+				height: 1px;
+				background: linear-gradient(90deg, var(--accent), transparent);
+				margin: 0 auto 2.2em auto;
+			}
+
+			/* ── Micro-interactions ── */
+
+			/* Tag hover — scale lift */
+			.tag {
+				transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.18s ease;
+			}
+
+			.tag:hover {
+				transform: scale(1.05);
+			}
+
+			/* Indigo tag hover */
+			.tag-list .tag:nth-child(1):hover,
+			.tag-list .tag:nth-child(2):hover,
+			.tag-list .tag:nth-child(3):hover,
+			.tag-list .tag:nth-child(8):hover {
+				background: rgba(165, 180, 252, 0.14);
+			}
+
+			/* Cyan tag hover */
+			.tag-list .tag:nth-child(4):hover,
+			.tag-list .tag:nth-child(5):hover,
+			.tag-list .tag:nth-child(6):hover {
+				background: rgba(34, 211, 238, 0.14);
+			}
+
+			/* Neutral tag hover */
+			.tag-list .tag:nth-child(7):hover,
+			.tag-list .tag:nth-child(9):hover {
+				background: rgba(255, 255, 255, 0.08);
+			}
+
+			/* Scrollbar */
+			::-webkit-scrollbar             { width: 3px; }
+			::-webkit-scrollbar-track       { background: var(--surface); }
+			::-webkit-scrollbar-thumb       { background: rgba(34, 211, 238, 0.2); border-radius: 2px; }
+			::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+			/* ── Responsive ── */
+			@media screen and (max-width: 736px) {
+				.project-stat-row {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 1.2em;
+				}
+
+				#top h2.alt {
+					font-size: 1.9em;
+				}
+
+				.two header::before,
+				.three header::before,
+				.four header::before {
+					font-size: 5em;
+				}
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -20,17 +642,17 @@
 
 					<!-- Logo -->
 						<div id="logo">
-							<span class="image avatar35"><img src="images/NationalsPic-resize.jpg" alt="" /></span>
+							<span class="image avatar35"><img src="images/NationalsPic.jpeg" alt="Logan Lara" /></span>
 							<h1 id="title">Logan Lara</h1>
-							<p>Computer Scientist</p>
+							<p>Software Engineer</p>
 						</div>
 
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
-								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">About Me</span></a></li>
+								<li><a href="#projects" id="projects-link"><span class="icon solid fa-code">Projects</span></a></li>
+								<li><a href="#about" id="about-link"><span class="icon solid fa-user">About</span></a></li>
 								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
 							</ul>
 						</nav>
@@ -41,8 +663,8 @@
 
 					<!-- Social Icons -->
 						<ul class="icons">
-							<li><a href="http://www.linkedin.com/in/logantheengineer" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="http://www.instagram.com/logan.the.engineer/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://www.linkedin.com/in/logantheengineer" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/logan-the-engineer" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 						</ul>
 
 				</div>
@@ -55,119 +677,96 @@
 				<!-- Intro -->
 					<section id="top" class="one dark cover">
 						<div class="container">
-
 							<header>
-								<h2 class="alt">Hey, I'm <strong>Logan Lara</strong>. Welcome to my <strong>Website</strong>.</h2>
+								<h2 class="alt">Hi, I'm <strong>Logan Lara</strong>.<br />I build <strong>software systems</strong>.</h2>
+								<p class="tagline">CS @ WGU &nbsp;|&nbsp; Python · FastAPI · PyTorch &nbsp;|&nbsp; Seeking SWE New Grad &amp; Intern Roles</p>
 							</header>
 							<footer>
-								<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/Resume.pdf" class="button scrolly">Resume</a>
+								<a href="https://github.com/logan-the-engineer/logans-algorithmic-trading-platform" class="button scrolly">View Project</a>
+								<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/Resume.pdf" class="button alt scrolly">Resume</a>
 							</footer>
 						</div>
 					</section>
 
-				<!-- Portfolio -->
-					<section id="portfolio" class="two">
+				<!-- Projects -->
+					<section id="projects" class="two">
 						<div class="container">
 
 							<header>
-								<h2>Portfolio</h2>
+								<h2>Projects</h2>
 							</header>
 
-							<p>This portfolio features Python projects from my Introduction to Programming I course. I earned a 4.0 in this notoriously difficult weeder course and was offered a
-								position as an Undergraduate Teaching Assistant due to my in-depth understanding of the material and the guidance I regularly provided to my recitation team. Personal projects will be added in the future.
-							</p>
+							<div class="project-card">
+								<h3>Algorithmic Trading &amp; Backtesting Platform</h3>
+								<p class="project-meta">Python · FastAPI · PyTorch · scikit-learn · pandas · yfinance · pytest &nbsp;|&nbsp; Mar 2026 – Present</p>
 
-							<div class="row">
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/CSE%20231%20Projects/Calendar%20Assistant/proj11.py" class="image fit"><img src="images/calendar.jpeg" alt="" /></a>
-										<header>
-											<h3>Calendar Assistant</h3>
-										</header>
-									</article>
+								<div class="project-stat-row">
+									<div class="project-stat">
+										<span class="stat-value">2</span>
+										<span class="stat-label">ML Strategies</span>
+									</div>
+									<div class="project-stat">
+										<span class="stat-value">36</span>
+										<span class="stat-label">Passing Tests</span>
+									</div>
+									<div class="project-stat">
+										<span class="stat-value">4</span>
+										<span class="stat-label">Architecture Layers</span>
+									</div>
+									<div class="project-stat">
+										<span class="stat-value">5</span>
+										<span class="stat-label">Performance Metrics</span>
+									</div>
 								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/CSE%20231%20Projects/JSON%20File%20Reader/proj09.py" class="image fit"><img src="images/mscoco.jpg" alt="" /></a>
-										<header>
-											<h3>JSON File Reader</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/CSE%20231%20Projects/Per%20Capita%20Diabetes%20Calculator/proj08.py" class="image fit"><img src="images/diabetes.jfif" alt="" /></a>
-										<header>
-											<h3>Per Capita Diabetes Calculator</h3>
-										</header>
-									</article>
+
+								<p>A production-quality algorithmic trading and backtesting platform following a strict layered monolith architecture (HTTP to service to domain to infra) with enforced unidirectional dependency flow, keeping the simulation engine independently testable and strategies hot-swappable.</p>
+
+								<p>The backtesting engine runs a bar-by-bar simulation loop, ingesting live OHLCV data via yfinance, applying configurable fees and slippage in basis points, and computing real performance metrics: total return, CAGR, Sharpe ratio, max drawdown, and win rate.</p>
+
+								<p>Two trained ML strategies are integrated: a RandomForest classifier on gold futures (GC=F) and a stateful Deep Q-Network agent on SPY with a 10-bar lookback buffer. Each strategy owns its own feature pipeline and is registered via a graceful-skip pattern that allows the app to start regardless of artifact availability.</p>
+
+								<p>The test suite uses a mock MarketDataPort that eliminates all network calls, validating happy-path and error-path behavior end-to-end across 7 test files.</p>
+
+								<div class="tag-list">
+									<span class="tag">Layered Monolith</span>
+									<span class="tag">REST API</span>
+									<span class="tag">Backtesting Engine</span>
+									<span class="tag">RandomForest</span>
+									<span class="tag">Deep Q-Network</span>
+									<span class="tag">Feature Pipeline</span>
+									<span class="tag">pytest</span>
+									<span class="tag">OpenAPI 3.0</span>
+									<span class="tag">Pydantic v2</span>
 								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="https://github.com/logan-the-engineer/logan-the-engineer.github.io/blob/main/CSE%20231%20Projects/Card%20Game/proj10.py" class="image fit"><img src="images/cards.jpg" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-										<header>
-											<h3>"Streets and Alleys" Card Game</h3>
-										</header>
-									</article>
+
+								<div class="project-links">
+									<a href="https://github.com/logan-the-engineer/logans-algorithmic-trading-platform" target="_blank">GitHub Repo &rarr;</a>
 								</div>
 							</div>
 
-						</div>                                 
+						</div>
 					</section>
 
-				<!-- About Me -->
+				<!-- About -->
 					<section id="about" class="three">
 						<div class="container">
 
 							<header>
-								<h2>About Me</h2>
+								<h2>About</h2>
 							</header>
 
-							<a href="#" class="image featured"><img src="images/paris.jpg" alt="" /></a>
+							<div class="section-divider"></div>
 
-							<p>I'm a Computer Science student passionate about hands-on experience, problem-solving, and personal growth.
-								Guided by a motto of self-reflection, self-discovery, and self-improvement, I enjoy applying my interests in software engineering,
-								AI, cybersecurity, and productivity to solve real-world problems and help others grow.
-							</p>
+							<p>CS student at Western Governors University targeting SWE new grad and intern roles, with hands-on experience across security engineering, embedded systems, and AI evaluation.</p>
 
-							<h3>Cybersecurity Analyst Associate (Security Operations Center), Jackson Financial</h3>
-							<ul>
-								<li>Perform infrastructure and endpoint security tasks (server decommissioning, tooling validation) using Jira, Tanium, and Qualys.</li>
-								<li>Investigate threats via login, firewall, and MFA logs; correlate anomalies with maintenance activity using Azure, CrowdStrike, CyberArk, Splunk, and Palo Alto tools.</li>
-								<li>Lead weekend SOC shifts: triage incidents, delegate investigations, coordinate cross-team collaboration, and manage end-of-shift handoffs.</li>
-								<li>Conducted research on 900+ phishing incidents to protect $600k+ in client assets.</li>
-							</ul>
+							<p>At <strong>Jackson Financial</strong>, I performed infrastructure and endpoint security engineering, investigated threats across cloud and network environments, and led the weekend SOC shift handling incident triage, response coordination, and end-of-shift handoffs. I also analyzed 900+ phishing incidents, protecting $600k+ in client assets.</p>
 
-							<h3>AI Trainer, DataAnnotation</h3>
-							<ul>
-								<li>Evaluated and stress-tested 10+ large language models (text-to-text and text-to-image) using adversarial prompting, C++, and Python.</li>
-								<li>Conducted peer QA reviews to ensure safety, alignment, and consistency of model outputs.</li>
-							</ul>
+							<p>As a <strong>Controls Engineer Intern at Lear Corporation</strong>, I self-taught ladder logic in one week, then diagnosed a critical false-pass bug in a car seat functionality PLC test whose fix prompted a company-wide code review.</p>
 
-							<h3>Controls Engineer Intern, Lear Corporation</h3>
-							<ul>
-								<li>Self-taught ladder logic in one week to support PLC test development.</li>
-								<li>Resolved critical bugs, analyzed test data, and presented findings to engineers and management.</li>
-							</ul>
+							<p>Outside of technical work, I served as <strong>President of my university's NSBE chapter</strong>, rebuilding the executive board after COVID-era attrition, designing a two-tier task management system to replace ad hoc coordination, and restructuring the chapter's meeting cadence. The chapter earned Outstanding Professional Organization of the Year and 2nd Place for NSBE Region IV Chapter of the Year during my term.</p>
 
-							<h3>President, NSBE Chapter</h3>
-							<ul>
-								<li>Secured 97% support for presidency and built the first fully staffed executive board since 2019.</li>
-								<li>Improved operations with task-management systems and streamlined communication, leading to multiple awards, including Outstanding Professional Organization of the Year.</li>
-							</ul>
+							<p>Open to SWE new grad and intern opportunities, with particular interest in FAANG and quantitative finance.</p>
 
-							<h3>STEM Tutor, TRIO Student Support Services</h3>
-							<ul>
-								<li>Led 30+ tutoring sessions in programming and calculus.</li>
-								<li>Taught study strategies like active recall, spaced repetition, and Feynman Technique, while introducing productivity tools like Notion and the Pomodoro Method.</li>
-							</ul>
-
-							<h3>KPMG Future of Tech Summit Case Competition</h3>
-							<ul>
-								<li>Collaborated with a cross-disciplinary team to develop a solution for community carbon neutrality, placing as finalists.</li>
-							</ul>
-
-							<p>Connect with me to discuss shared interests or internship opportunities.</p>
-
-							
 						</div>
 					</section>
 
@@ -179,13 +778,11 @@
 								<h2>Contact</h2>
 							</header>
 
-								<P>Email: loganlara1@gmail.com</p>
+							<div class="section-divider"></div>
 
-								<P>Phone: (616) 264-0822</p>
-							    
-								<p><a href="https://www.linkedin.com/in/logantheengineer/">LinkedIn</a></p>
-								
-								<p><a href="https://www.instagram.com/logan.the.engineer/">Instagram</a></p>
+							<p>Email: <a href="mailto:loganlara1@gmail.com">loganlara1@gmail.com</a></p>
+							<p><a href="https://www.linkedin.com/in/logantheengineer/" target="_blank">LinkedIn</a></p>
+							<p><a href="https://github.com/logan-the-engineer" target="_blank">GitHub</a></p>
 
 						</div>
 					</section>
@@ -194,12 +791,9 @@
 
 		<!-- Footer -->
 			<div id="footer">
-
-				<!-- Copyright -->
-					<ul class="copyright">
-						<li>Designed with: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-
+				<ul class="copyright">
+					<li>Designed with: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
 			</div>
 
 		<!-- Scripts -->
