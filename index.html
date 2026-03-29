@@ -58,62 +58,105 @@
 
 			/* ── Sidebar / header ── */
 			#header {
-				background: var(--surface);
+				background: linear-gradient(175deg, #0a0f22 0%, var(--surface) 70%);
 				border-right: 1px solid var(--border);
 			}
 
-			#header .top {
-				border-bottom: 1px solid var(--border);
+			#header .top   { border-bottom: 1px solid var(--border); }
+			#header .bottom { border-top: 1px solid var(--border); }
+
+			/* Avatar — double-ring treatment */
+			.image.avatar35 img {
+				border: 2px solid var(--accent);
+				border-radius: 50%;
+				box-shadow:
+					0 0 0 4px var(--accent-glow),
+					0 0 20px rgba(34, 211, 238, 0.06);
+				transition: box-shadow 0.35s ease;
 			}
 
-			#header .bottom {
-				border-top: 1px solid var(--border);
+			.image.avatar35:hover img {
+				box-shadow:
+					0 0 0 4px rgba(34, 211, 238, 0.3),
+					0 0 30px rgba(34, 211, 238, 0.13);
 			}
 
+			/* Name */
 			#logo h1 {
 				font-family: var(--display);
 				font-weight: 800;
-				font-size: 1.05em;
+				font-size: 1.1em;
 				letter-spacing: -0.01em;
 				color: var(--text-primary);
 			}
 
+			/* Title */
 			#logo p {
 				font-family: var(--mono);
-				font-size: 0.72em;
+				font-size: 0.63em;
 				color: var(--accent);
-				letter-spacing: 0.08em;
+				letter-spacing: 0.14em;
 				text-transform: uppercase;
+			}
+
+			/* Nav links */
+			#nav ul li {
+				position: relative;
 			}
 
 			#nav a {
 				font-family: var(--sans);
-				font-size: 0.82em;
+				font-size: 0.83em;
 				font-weight: 500;
-				letter-spacing: 0.03em;
+				letter-spacing: 0.01em;
 				color: var(--text-secondary);
-				transition: color 0.2s ease;
+				position: relative;
+				transition: color 0.25s ease, padding-left 0.25s ease;
 			}
 
-			#nav a:hover,
+			/* Left-border active indicator */
+			#nav a::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 2px;
+				height: 0;
+				background: var(--accent);
+				border-radius: 1px;
+				transition: height 0.25s ease;
+			}
+
+			#nav a:hover {
+				color: var(--text-primary);
+				padding-left: 4px;
+			}
+
 			#nav a.active {
 				color: var(--accent);
 			}
 
-			/* ── Avatar ring ── */
-			.image.avatar35 img {
-				border: 2px solid var(--accent);
-				border-radius: 50%;
+			#nav a.active::before {
+				height: 50%;
 			}
 
-			/* ── Social icons ── */
+			/* Social icons */
 			#header .icons a {
 				color: var(--text-secondary);
-				transition: color 0.2s ease;
+				width: 2.2em;
+				height: 2.2em;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
 			}
 
 			#header .icons a:hover {
 				color: var(--accent);
+				background: var(--accent-dim);
+				transform: translateY(-2px);
 			}
 
 			/* ── Intro section ── */
