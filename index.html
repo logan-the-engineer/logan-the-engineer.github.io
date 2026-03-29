@@ -65,6 +65,13 @@
 			#header .top   { border-bottom: 1px solid var(--border); }
 			#header .bottom { border-top: 1px solid var(--border); }
 
+			/* Logo — override absolute positioning so avatar stacks above name */
+			#logo .image {
+				position: relative !important;
+				display: block;
+				margin: 0 0 0.65em 0;
+			}
+
 			/* Avatar — double-ring treatment */
 			.image.avatar35 img {
 				border: 2px solid var(--accent);
@@ -635,7 +642,7 @@
 
 					<!-- Logo -->
 						<div id="logo">
-							<span class="image avatar35"><img src="images/NationalsPic-resize.jpg" alt="Logan Lara" /></span>
+							<span class="image avatar35"><img src="images/NationalsPic.jpeg" alt="Logan Lara" /></span>
 							<h1 id="title">Logan Lara</h1>
 							<p>Software Engineer</p>
 						</div>
